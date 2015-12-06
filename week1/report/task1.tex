@@ -1,0 +1,118 @@
+\documentclass{IEEEtran}
+
+\title{A survey of medical image registration}
+\author{Sihan Li, Tsinghua University}
+
+\begin{document}
+  \maketitle
+
+  \begin{abstract}
+    This paper aims to conduct a literature survey in medical image registration. Purposes of the image registration in medical field are classified and presented. The commonly applied methods are discussed, and their advantages and drawbacks are compared as well. This survey concentrates on publications published in 2011 or later, and try to give reader a comprehensive understanding of the topic.
+  \end{abstract}
+
+  \section{introduction}
+
+  Image registration is a process of aligning two or more images geometrically. These images can be taken at different time, from different viewpoints or from different sensors. It is vital in image analysis when the data collected from different sources need to be combined. To achieve this, a variety of techniques have been developed and researched, aiming for different kinds of applications. \cite{brown1992survey, zitova2003image}
+
+  Among the applications, medical image analysis is one of the major research areas from the very beginning \cite{brown1992survey}. It is usually desired to integrate useful data from different image in the clinical track of events. Align modalities involved spatially is the first step in this process \cite{maintz1998survey}.
+
+  As a result, a large quantity of research concentrating on medical image registration have been published over the last 20 years.This leads to a branch of literal surveys. Brown conducted one of the earliest surveys on overall image registration in 1992 \cite{brown1992survey}. He compared different registration techniques, as well as their applications in different fields. Van den Elsen's survey in 1993 focused on medical image matching \cite{van1993medical}. He proposed seven classification criteria that can be used for any modality, including \emph{dimensionality}, \emph{origin of image properties}, \emph{domain of the transformations}, \emph{elasticity of the transformations}, \emph{tightness of property coupling}, \emph{parameter determination} and \emph{interaction}. Maintz adopted and extend the criteria into nine criteria with detailed sub-criteria in 1998 \cite{maintz1998survey}. He decomposed these criteria into three parts: \emph{problem statement}, \emph{registration paradigm} and \emph{optimization procedure}. Maintz's criteria is widely used by later survey, such as \cite{hill2001medical, sotiras2013deformable, mani2013survey, oliveira2014medical}.
+
+  This paper tries to concentrate on two major parts of it: \emph{purposes}, to explain why image registration is important in medical field, and \emph{methods}, to present the most commonly used ways to achieve the purposes and their comparison. We use part of Maintz's \cite{maintz1998survey} criteria and sub-criteria. We classify different purposes by \emph{modalities}, and different methodologies by \emph{translations}, \emph{similarity measures} and \emph{optimizations}.
+
+  It is worth noticing that even in the lasted survey conducted in 2014, research after 2010 are rarely included. To illustrate the current trend of medical image registration, its recent applications as well as commonly applied methodologies at present, we choose publications that are published in 2011 or later. For a review for earlier publications, one can refer to the surveys we mentioned above: \cite{van1993medical, maintz1998survey, hill2001medical, sotiras2013deformable, mani2013survey, oliveira2014medical}.
+
+  \section{Purposes}
+
+  The purposes of medical image registration is closely related to the problem statement. In Maintz's \cite{maintz1998survey} criteria, problem statements are related to three criteria: \emph{modalities involved}, \emph{subject} and \emph{object}. Here we will choose modalities as the major criteria to classify different applications. Different subjects and objects will be discussed in each kind of modality.
+
+  \subsection{Monomodal}
+  Monomodal registration works on images obtaining by a single technique, including CT (Computed Tomography), PET (Positron Emission Tomography), MRI (Magnetic Resonance Imaging) etc. It is generally a lot easier then multimodal registration, as the degree of similarity between the input images are usually high. Possible applications include growth monitoring, intervention verification, rest–stress comparisons and so on. \cite{maintz1998survey}
+
+  Based on the recent publications, we classify the applications of monomodal registration into three categories.
+
+  \subsubsection{Distortion correction}
+
+  The most general applications for monomodal applications is distortion correction. The distortion may caused by motion, noise and so on. The goal is to correct or compensate the distortion to make sure the images can be used for the further process.
+
+  Bauer implemented a MRI-based medical image analysis for brain tumor studies for the diagnosis and delineation of tumor compartments \cite{bauer2013survey}. Gigengack use registration to correct the motion of respiratory and cardiac in PET images \cite{gigengack2012motion}. Kurugo created a motion compensated abdominal diffusion weighted MRI by Simultaneous Image Registration and Model Estimation \cite{kurugol2015motion}. Zheng applied registration before an automated segmentation of retinal layers from OCT image \cite{zheng2013generative}. Berendsen applied registration to organ segmentation in cervical MR \cite{berendsen2013free}.
+
+  \subsubsection{Changes Extraction}
+
+  Sometimes registration is applied to a series of images taken at different time. The goal is to recognize the changes between the images, in order to update treatment plan, monitor growth or improve the quality of therapy.
+
+  Bauer used registration matching between original treatment planning CT (kvCT) and the daily imaging study set for treatment planning modification decisions \cite{varadhan2013framework}. Zhong applied tumor regression registration to daily cone-beam computed tomography (CBCT) images, in order to improve the quality of adaptive radiation therapy for lung cancer patients \cite{zhong2015morphological}. Li developed a whole-body CT image registration, which is important for cancer diagnosis, therapy planning and treatment \cite{li2015patient}.
+
+
+  \subsection{Multimodal}
+
+  Multimodal registration works on images obtaining by a different techniques. Common combinations includes CT-MR, CT-PET, PET-MR etc \cite{maintz1998survey}. Registration of obtained from the same modality using different acquisition parameters are often treated as multimodal as well \cite{oliveira2014medical}.
+
+  Multimodal registration is usually applied to \emph{take advantages of more than one imaging techniques}. For instance, ultrasound (US) is real-time but has low spatial-resolution and SNR, while MRI is just the opposite. If images of US and MRI can be registration, advantages of both methodologies can be taken.
+
+  Ong proposed an outlier elimination approach for multimodal retina image registration \cite{ong2015robust}. Vaida implemented an US-MRI registration of pelvic organs for endometriosis diagnosis \cite{vaida2012approach}. Yamamura enhanced image of head vascular by matching the CTA and MRA \cite{yamamura2014image}. Hopp proposed a way of breast image registration using the fact that diagnostic information provided by X-ray mammography and MRI are complementary \cite{hopp2013automatic}. Van registered multispectral MR vessel wall images of the carotid artery \cite{van2013automated}. Although they are all MR sequences, they have different contrast so can be classified as multimodal.
+
+  \subsection{Modality to model}
+
+  Modality to model means only one image is used for the registration, and is registered to a model. The model can be mathematically defined, or can be derived from another modality. It can be used to identify anomalies relative to normalized structures. \cite{maintz1998survey}
+
+  Also, modality to model registration can be used to register two modalities. An example of it is Hu's research, in which he used MR images to generate a model of the gland surface, which is then registered to 3D transrectal ultrasound (TRUS) images \cite{hu2012mr}.
+
+  \subsection{Modality to physical space}
+
+  Modality to physical space means the images are registered to the patients themselves. It is most commonly used in intra-operative applications, such as providing image guidance for a surgery.
+
+  For example, Song registered preoperative CT to real-time ultrasound data to provide image guidance for a laparoscopic liver surgery \cite{song2015locally}.
+
+  \subsection{Summary}
+
+  Determined by the statement of the problem, medical image registration can have different applications. Possible applications include distortion correction, changes extraction, combining advantages of different imaging techniques, identify anomalies, as well as image guided surgery.
+
+  \section{Methods}
+
+  Zitova formulated the procedures of most registration methods into 4 steps: \emph{feature detection}, \emph{feature matching}, \emph{transform model estimation} and \emph{image resampling and transformation} \cite{zitova2003image}. However, the first step is not needed for some kinds of registration. In order to represent a more clear picture of different methods, we adopt an approach using by previous surveys and compress the four steps into three key points: \emph{similarity measure}, \emph{transformation} and \emph{optimization} \cite{sotiras2013deformable, oliveira2014medical}. Although these parts are all important parts of image registration, similarity measure is usually the one that truly separate a methodology from another. Thus, we concentrate on similarity measure in this paper.
+
+  \subsection{Similarity measure}
+
+  Similarity measure is a criteria to judge the degree of similarity of two images. It is know as \emph{cost function}, or \emph{registration basis} in Maintz's classification. Commonly used measures include intensity based measures and feature based measures.
+
+  \subsubsection{Intensity based}
+
+  Intensity based measures, or area based measures, analysis the images as a whole, without detecting salient objects. They can be performed on either the whole image, or windows of predefined size \cite{zitova2003image}.
+
+  \paragraph{Correlation-like}
+
+  The measures based on the intensity difference are usually based on the sum of squared differences (SSD) or their normalisations \cite{oliveira2014medical}. Apart from SSD, Cross-Correlation (CC) is also one of the classical area based measures \cite{zheng2013generative, etemadi2014efficient}.
+
+  Correlation-like measures have easy hardware implementation. In a real-time application, this feature is very useful. However, the self-similarity of the images may flatten the measure maxima. Moreover, the computational complexity is high due to large amounts of calculations. \cite{zitova2003image}
+
+  \paragraph{Information theory based}
+
+  Information theory based measure use mutual information (MI) measures statistical dependency between two data sets. It works directly with image intensities of the entire image. It have gain much attention and adopted by many researchers \cite{wang2013novel, vaida2012approach, spanakis2014extended, yamamura2014image, van2013automated, fedorov2012image, wang2013study}.
+
+  It is a generally applicable measure, as preprocessing, proper initialization and parameter adjustment are not required \cite{zitova2003image}. Moreover, when applied to multimodal images, it shows great reliability and robustness. Apart from theoretical flaw, the best way to implement a mutual information based method remain an open question \cite{oliveira2014medical}.
+
+  Being very popular at present, information theory based measures have some drawbacks. It is not optimal when the images contain thin structures, or in a MR-US registration \cite{zitova2003image}. Moreover, spatial information of the images are ignored. It is also not overlap invariant, which may leads to misalignment \cite{oliveira2014medical}.
+
+  Due to these limitations, some improvements have been made. Studholme proposed Normalized Mutual Information (NMI) that is overlap invariant in 1999. They showed a significantly improved behavior of the new measure \cite{studholme1999overlap}. NMI is one of the commonly used substitution of MI \cite{van2013automated, hopp2013automatic, yang2015non}. Other kinds of entropy instead of Shannon entropy have also been adopted, including Arimoto entropy \cite{li20153d}, Tsallis entropy \cite{khader2012information}. Other variants include Localised Mutual Information (LMI) \cite{bron2013image} and Fuzzy Signal-to-Noise Ratio (FSNR) \cite{pan2012medical}.
+
+  \paragraph{Summary}
+
+  When the distinctive information is provided by gray-levels or colors instead of shapes and structure, intensity based measures are preferred. Nevertheless, the intensity functions of images to be operated must be statistically dependent, although this is usually the case in multimodal registration \cite{zitova2003image}.
+
+  \subsubsection{Feature-based}
+
+  Feature-based measures first detect features from both of the images to be registered. Possible features include regions, lines or points. These features are expected to be stable, which means they will stay at a fixed position. Then pair-wise correspondence is then used to determine the similarity of two images \cite{zitova2003image}. Although not as popular as intensity based measures nowadays, many implementations of registration still use features based measures \cite{lu2012non, ong2015robust, economopoulos2014automatic, zhang2014compounding, li2012evaluation, wu2015hierarchical, kim2014hierarchical, biswas2015medical, sergeev2012medical, heinrich2012mind, hu2012mr}.
+
+  Feature based measures are usually applied to the images where local structural information overweight the overall intensities. Also, because the features are carefully designed, they can handle complex distortions. But designing a robust, easy-to-detect feature descriptors itself can be complex \cite{zitova2003image}.
+
+  \section{Conclusion}
+
+  In this paper we conducted a survey on medical image registration. Using the previous surveys and publications that are published in the last five years, we summarize the scientific goals of medical image registration. We also compared different methodologies that are common today. It is worth noticing that information theory based methodology has become very popular, and further investigation is needed for a well-implemented algorithm.
+
+
+
+  \bibliographystyle{IEEEtran}
+  \bibliography{task1}
+
+\end{document}
