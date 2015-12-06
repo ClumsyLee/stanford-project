@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-para_file='default0.txt'
-out_dir='test'
+method='elastix-MSD'
+out_dir=$method
+para_file="${out_dir}/param.txt"
 tmp_dir='/tmp/elastix/working'
 tmp_trans='/tmp/elastix/transform.txt'
 

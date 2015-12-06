@@ -1,3 +1,3 @@
 clc;
 
-out_data = getDataFromWeb('http://www.insight-journal.org/rire/view_result.php?methodid=171206');
+out_data = getDataFromWeb('http://www.insight-journal.org/rire/view_result.php?methodid=171215');
