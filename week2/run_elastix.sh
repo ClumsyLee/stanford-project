@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-para_file='/Users/lisihan969/Desktop/data/patient_001/default0.txt'
+para_file='default0.txt'
 out_dir='test'
 tmp_dir='/tmp/elastix/working'
 tmp_trans='/tmp/elastix/transform.txt'
