@@ -2,6 +2,9 @@
 
 ## MATLAB implementations
 
+**NOTE: You must have Image Processing Toolbox installed in your MATLAB
+installation to execute MATLAB implementations.**
+
 - `register_img.m`: MATLAB implementation, modify it to switch between
   implementations.
 - `run_matlab.m`: MATLAB script to run MATLAB implementations. Remember to
@@ -10,7 +13,7 @@
 ## Elastix implementations
 
 **NOTE: You must have [elastix](http://elastix.isi.uu.nl) installed first to
-execute elastix implementations**
+execute elastix implementations.**
 
 - `gen_points.m`: generate the points file required by `transformix`.
 - `run_elastix.sh`: Bash script to run elastix implementations. Remember to
