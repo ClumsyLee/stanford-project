@@ -1,0 +1,6 @@
+ function [header, volume] = read_rire(directory)
+    header = helperReadHeaderRIRE([directory '/header.ascii']);
+    volume = multibandread([directory '/image.bin'], ...
+                           [header.Rows, header.Columns, header.Slices], ...
+                           'int16=>single', 0, 'bsq', 'ieee-be' );
+end
