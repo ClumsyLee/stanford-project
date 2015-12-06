@@ -25,15 +25,6 @@ patients = {
     'patient_007'
     'patient_008'
     'patient_009'
-    'patient_101'
-    'patient_102'
-    'patient_103'
-    'patient_104'
-    'patient_105'
-    'patient_106'
-    'patient_107'
-    'patient_108'
-    'patient_109'
 };
 
 for patient = patients'
@@ -54,7 +45,7 @@ for patient = patients'
             disp(['        => ' to]);
 
             register_img([data_root '/' patient], from, to, ...
-                         'MeanSquares-OnePlusOneEvolutionary');
+                         'matlab-MI');
         end
     end
 end

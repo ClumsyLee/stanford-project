@@ -25,12 +25,12 @@ function result = register_img(data_set_dir, from, to, method_name)
     % [optimizer, metric] = imregconfig('multimodal');
     % optimizer.InitialRadius = 0.004;
     optimizer = registration.optimizer.OnePlusOneEvolutionary;
-    metric = registration.metric.MeanSquares;
-    % metric = registration.metric.MattesMutualInformation;
-    optimizer.InitialRadius = 0.0005;
+    % metric = registration.metric.MeanSquares;
+    metric = registration.metric.MattesMutualInformation;
+    optimizer.InitialRadius = 0.004;
     optimizer.Epsilon = 1.5e-4;
     optimizer.GrowthFactor = 1.01;
-    optimizer.MaximumIterations = 300;
+    optimizer.MaximumIterations = 250;
 
     % % Compare & exit.
     % registered_volume = imregister(moving_volume, moving_ref, ...
@@ -42,9 +42,15 @@ function result = register_img(data_set_dir, from, to, method_name)
     % return
 
     % Get transformation.
+    if moving_ref.ImageSize(3) < 16 || fixed_ref.ImageSize(3) < 16
+        levels = 2;
+    else
+        levels = 3;
+    end
     transformation = imregtform(moving_volume, moving_ref, ...
                                 fixed_volume, fixed_ref, ...
-                                'rigid', optimizer, metric, 'PyramidLevels', 3);
+                                'rigid', optimizer, metric, ...
+                                'PyramidLevels', levels);
 
     x = [1; 2; 1; 2; 1; 2; 1; 2];
     y = [1; 1; 2; 2; 1; 1; 2; 2];
