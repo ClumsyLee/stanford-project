@@ -1,1 +1,1 @@
-# stanford_project
+# Stanford Project
